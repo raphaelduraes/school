@@ -13,10 +13,7 @@ services:
       - 3306:3306
     networks:
       - springapimysql-net
-    environment:
-      MYSQL_DATABASE: school
-      MYSQL_USER: raphael
-      MYSQL_PASSWORD: 1234
-      MYSQL_ROOT_PASSWORD: root
+    env_file:
+      - .env
     volumes:
       - mysql_data:/var/lib/mysql
