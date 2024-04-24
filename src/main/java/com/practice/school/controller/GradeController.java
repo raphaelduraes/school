@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Set;
+
 @RestController
 @RequestMapping("/grade")
 public class GradeController {
@@ -18,6 +21,24 @@ public class GradeController {
     public ResponseEntity<Grade> getGradeById(@PathVariable Long id) {
         try {
             return new ResponseEntity<Grade>(gradeService.getGradeById(id), HttpStatus.OK);
+        } catch(GradeNotFoundException exception) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/all/student/{id}")
+    public ResponseEntity<List<Grade>> getGradesByStudentId(@PathVariable Long id) {
+        try {
+            return new ResponseEntity<List<Grade>>(gradeService.getGradesByStudentId(id), HttpStatus.OK);
+        } catch(GradeNotFoundException exception) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/all/subject/{id}")
+    public ResponseEntity<List<Grade>> getGradesBySubjectId(@PathVariable Long id) {
+        try {
+            return new ResponseEntity<List<Grade>>(gradeService.getGradesBySubjectId(id), HttpStatus.OK);
         } catch(GradeNotFoundException exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

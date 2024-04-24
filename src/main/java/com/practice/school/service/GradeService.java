@@ -8,6 +8,7 @@ import com.practice.school.repository.GradeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -20,12 +21,12 @@ public class GradeService {
         return gradeRepository.findById(id).orElseThrow(GradeNotFoundException::new);
     }
 
-    public Set<Grade> getGradesByStudentId(Long studentId) {
-        return (Set<Grade>) gradeRepository.findByStudentId(studentId);
+    public List<Grade> getGradesByStudentId(Long studentId) {
+        return (List<Grade>) gradeRepository.findByStudentId(studentId);
     }
 
-    public Set<Grade> getGradesBySubjectId(Long subjectId) {
-        return (Set<Grade>) gradeRepository.findBySubjectId(subjectId);
+    public List<Grade> getGradesBySubjectId(Long subjectId) {
+        return (List<Grade>) gradeRepository.findBySubjectId(subjectId);
     }
 
     public Grade createGrade(Grade grade) {
