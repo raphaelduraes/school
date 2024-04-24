@@ -1,9 +1,12 @@
 package com.practice.school.service;
 
 import com.practice.school.exception.StudentNotFoundException;
+import com.practice.school.model.Course;
 import com.practice.school.model.Student;
 import com.practice.school.repository.StudentRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
 
 @Service
 public class StudentService {
@@ -12,6 +15,10 @@ public class StudentService {
 
     public Student getStudentById(Long id) throws StudentNotFoundException{
         return studentRepository.findById(id).orElseThrow(StudentNotFoundException::new);
+    }
+
+    public Set<Student> getStudentsByCourse(Course course) {
+        return (Set<Student>) studentRepository.findAllByCourse(course);
     }
 
     public Student createStudent(Student student) {

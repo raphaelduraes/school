@@ -2,9 +2,12 @@ package com.practice.school.service;
 
 import com.practice.school.exception.CourseNotFoundException;
 import com.practice.school.model.Course;
+import com.practice.school.model.Student;
 import com.practice.school.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
 
 @Service
 public class CourseService {
@@ -14,6 +17,10 @@ public class CourseService {
 
     public Course getCourseById(Long id) throws CourseNotFoundException{
         return courseRepository.findById(id).orElseThrow(CourseNotFoundException::new);
+    }
+
+    public Set<Course> getCoursesByStudent(Student student) {
+        return (Set<Course>) courseRepository.findCoursesByStudent(student);
     }
 
     public Course createCourse(Course course) {

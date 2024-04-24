@@ -2,8 +2,12 @@ package com.practice.school.service;
 
 import com.practice.school.exception.GradeNotFoundException;
 import com.practice.school.model.Grade;
+import com.practice.school.model.Student;
+import com.practice.school.model.Subject;
 import com.practice.school.repository.GradeRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
 
 @Service
 public class GradeService {
@@ -12,6 +16,14 @@ public class GradeService {
 
     public Grade getGradeById(Long id) throws GradeNotFoundException{
         return gradeRepository.findById(id).orElseThrow(GradeNotFoundException::new);
+    }
+
+    public Set<Grade> getGradesByStudent(Student student) {
+        return (Set<Grade>) gradeRepository.findAlByStudent(student);
+    }
+
+    public Set<Grade> getGradesBySubject(Subject subject) {
+        return (Set<Grade>) gradeRepository.findAlBySubject(subject);
     }
 
     public Grade createGrade(Grade grade) {

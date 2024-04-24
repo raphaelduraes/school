@@ -1,9 +1,12 @@
 package com.practice.school.service;
 
 import com.practice.school.exception.SubjectNotFoundException;
+import com.practice.school.model.Course;
 import com.practice.school.model.Subject;
 import com.practice.school.repository.SubjectRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
 
 @Service
 public class SubjectService {
@@ -12,6 +15,10 @@ public class SubjectService {
 
     public Subject getSubjectById(Long id) throws SubjectNotFoundException{
         return subjectRepository.findById(id).orElseThrow(SubjectNotFoundException::new);
+    }
+
+    public Set<Subject> getSubjectsByCourse(Course course) {
+        return (Set<Subject>) subjectRepository.findAllByCourse(course);
     }
 
     public Subject createSubject(Subject subject) {
