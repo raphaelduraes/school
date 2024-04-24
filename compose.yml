@@ -1,0 +1,22 @@
+version: "3.7"
+networks:
+  springapimysql-net:
+volumes:
+  mysql_data:
+
+services:
+  mysqldb:
+    image: "mysql:8.0"
+    container_name: mysqldb
+    restart: always
+    ports:
+      - 3306:3306
+    networks:
+      - springapimysql-net
+    environment:
+      MYSQL_DATABASE: school
+      MYSQL_USER: raphael
+      MYSQL_PASSWORD: 1234
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql_data:/var/lib/mysql
