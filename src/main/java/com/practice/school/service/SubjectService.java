@@ -4,6 +4,7 @@ import com.practice.school.exception.SubjectNotFoundException;
 import com.practice.school.model.Course;
 import com.practice.school.model.Subject;
 import com.practice.school.repository.SubjectRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -11,6 +12,7 @@ import java.util.Set;
 @Service
 public class SubjectService {
 
+    @Autowired
     private SubjectRepository subjectRepository;
 
     public Subject getSubjectById(Long id) throws SubjectNotFoundException{

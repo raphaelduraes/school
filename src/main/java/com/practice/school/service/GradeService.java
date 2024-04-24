@@ -5,6 +5,7 @@ import com.practice.school.model.Grade;
 import com.practice.school.model.Student;
 import com.practice.school.model.Subject;
 import com.practice.school.repository.GradeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -12,6 +13,7 @@ import java.util.Set;
 @Service
 public class GradeService {
 
+    @Autowired
     private GradeRepository gradeRepository;
 
     public Grade getGradeById(Long id) throws GradeNotFoundException{

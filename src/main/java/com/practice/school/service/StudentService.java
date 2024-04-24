@@ -4,6 +4,7 @@ import com.practice.school.exception.StudentNotFoundException;
 import com.practice.school.model.Course;
 import com.practice.school.model.Student;
 import com.practice.school.repository.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -11,6 +12,7 @@ import java.util.Set;
 @Service
 public class StudentService {
 
+    @Autowired
     private StudentRepository studentRepository;
 
     public Student getStudentById(Long id) throws StudentNotFoundException{
