@@ -1,5 +1,6 @@
 package com.practice.school.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,8 +25,10 @@ public class Subject {
     private String professor;
 
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Grade> gradeSet;
 
     @ManyToMany(mappedBy = "subjectSet", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Course> courseSet;
 }

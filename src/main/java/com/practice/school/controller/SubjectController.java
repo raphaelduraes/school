@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
+
 @RestController
 @RequestMapping("/subject")
 public class SubjectController {
@@ -21,6 +23,11 @@ public class SubjectController {
         } catch(SubjectNotFoundException exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/all/course/{id}")
+    public ResponseEntity<Set<Subject>> getSubjectsByCourseId(@PathVariable Long id) {
+        return new ResponseEntity<>(subjectService.getSubjectsByCourseId(id), HttpStatus.OK);
     }
 
     @PostMapping("/")

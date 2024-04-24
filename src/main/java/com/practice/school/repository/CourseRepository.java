@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Set;
 
 public interface CourseRepository extends CrudRepository<Course, Long> {
-    Iterable<Course> findCoursesByStudent(Student student);
+    Iterable<Course> findByStudentSet_id(Long studentId);
 }

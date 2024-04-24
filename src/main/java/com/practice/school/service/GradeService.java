@@ -18,12 +18,12 @@ public class GradeService {
         return gradeRepository.findById(id).orElseThrow(GradeNotFoundException::new);
     }
 
-    public Set<Grade> getGradesByStudent(Student student) {
-        return (Set<Grade>) gradeRepository.findAlByStudent(student);
+    public Set<Grade> getGradesByStudentId(Long studentId) {
+        return (Set<Grade>) gradeRepository.findByStudentId(studentId);
     }
 
-    public Set<Grade> getGradesBySubject(Subject subject) {
-        return (Set<Grade>) gradeRepository.findAlBySubject(subject);
+    public Set<Grade> getGradesBySubjectId(Long subjectId) {
+        return (Set<Grade>) gradeRepository.findBySubjectId(subjectId);
     }
 
     public Grade createGrade(Grade grade) {

@@ -1,5 +1,6 @@
 package com.practice.school.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,6 +32,7 @@ public class Course {
             name = "courses_subjects",
             joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "subject_id"))
+    @JsonIgnore
     private Set<Subject> subjectSet;
 
     @ManyToMany
@@ -38,5 +40,6 @@ public class Course {
             name = "courses_students",
             joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id"))
+    @JsonIgnore
     private Set<Student> studentSet;
 }

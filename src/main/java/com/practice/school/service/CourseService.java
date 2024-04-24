@@ -19,8 +19,8 @@ public class CourseService {
         return courseRepository.findById(id).orElseThrow(CourseNotFoundException::new);
     }
 
-    public Set<Course> getCoursesByStudent(Student student) {
-        return (Set<Course>) courseRepository.findCoursesByStudent(student);
+    public Set<Course> getCoursesByStudentId(Long studentId) {
+        return (Set<Course>) courseRepository.findByStudentSet_id(studentId);
     }
 
     public Course createCourse(Course course) {

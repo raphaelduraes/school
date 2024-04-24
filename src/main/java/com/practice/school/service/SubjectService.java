@@ -17,8 +17,8 @@ public class SubjectService {
         return subjectRepository.findById(id).orElseThrow(SubjectNotFoundException::new);
     }
 
-    public Set<Subject> getSubjectsByCourse(Course course) {
-        return (Set<Subject>) subjectRepository.findAllByCourse(course);
+    public Set<Subject> getSubjectsByCourseId(Long courseId) {
+        return (Set<Subject>) subjectRepository.findByCourseSet_Id(courseId);
     }
 
     public Subject createSubject(Subject subject) {

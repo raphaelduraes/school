@@ -17,8 +17,8 @@ public class StudentService {
         return studentRepository.findById(id).orElseThrow(StudentNotFoundException::new);
     }
 
-    public Set<Student> getStudentsByCourse(Course course) {
-        return (Set<Student>) studentRepository.findAllByCourse(course);
+    public Set<Student> getStudentsByCourseId(Long courseId) {
+        return (Set<Student>) studentRepository.findByCourseSet_Id(courseId);
     }
 
     public Student createStudent(Student student) {

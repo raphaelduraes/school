@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GradeRepository extends CrudRepository<Grade, Long> {
-    Iterable<Grade> findAlByStudent(Student student);
+    Iterable<Grade> findByStudentId(Long studentId);
 
-    Iterable<Grade> findAlBySubject(Subject subject);
+    Iterable<Grade> findBySubjectId(Long subjectId);
 }
