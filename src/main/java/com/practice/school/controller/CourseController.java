@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Set;
+
 @RestController
 @RequestMapping("/course")
 public class CourseController {
@@ -18,6 +21,15 @@ public class CourseController {
     public ResponseEntity<Course> getCourseById(@PathVariable Long id) {
         try {
             return new ResponseEntity<Course>(courseService.getCourseById(id), HttpStatus.OK);
+        } catch(CourseNotFoundException exception) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/all/student/{id}")
+    public ResponseEntity<List<Course>> getCourseByStudentId(@PathVariable Long id) {
+        try {
+            return new ResponseEntity<List<Course>>(courseService.getCoursesByStudentId(id), HttpStatus.OK);
         } catch(CourseNotFoundException exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

@@ -7,6 +7,7 @@ import com.practice.school.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -19,8 +20,8 @@ public class CourseService {
         return courseRepository.findById(id).orElseThrow(CourseNotFoundException::new);
     }
 
-    public Set<Course> getCoursesByStudentId(Long studentId) {
-        return (Set<Course>) courseRepository.findByStudentSet_id(studentId);
+    public List<Course> getCoursesByStudentId(Long studentId) {
+        return (List<Course>) courseRepository.findByStudentSet_id(studentId);
     }
 
     public Course createCourse(Course course) {
