@@ -1,7 +1,6 @@
 package com.practice.school.service;
 
 import com.practice.school.exception.SubjectNotFoundException;
-import com.practice.school.model.Course;
 import com.practice.school.model.Subject;
 import com.practice.school.repository.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
