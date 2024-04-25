@@ -2,9 +2,7 @@ package com.practice.school.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Set;
 
@@ -12,19 +10,22 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class Course {
 
-    enum Shift{MORNING, AFTERNOON, EVENING}
+    public enum Shift{MORNING, AFTERNOON, EVENING}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name", nullable = false)
+    @NonNull
     private String name;
 
     @Column(name = "shift", nullable = false)
     @Enumerated(EnumType.STRING)
+    @NonNull
     private Shift shift;
 
     @ManyToMany
