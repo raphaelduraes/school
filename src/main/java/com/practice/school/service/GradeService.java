@@ -2,14 +2,11 @@ package com.practice.school.service;
 
 import com.practice.school.exception.GradeNotFoundException;
 import com.practice.school.model.Grade;
-import com.practice.school.model.Student;
-import com.practice.school.model.Subject;
 import com.practice.school.repository.GradeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class GradeService {

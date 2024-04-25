@@ -1,14 +1,12 @@
 package com.practice.school.service;
 
 import com.practice.school.exception.StudentNotFoundException;
-import com.practice.school.model.Course;
 import com.practice.school.model.Student;
 import com.practice.school.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class StudentService {
