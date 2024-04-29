@@ -22,6 +22,10 @@ public class CourseService {
         return (List<Course>) courseRepository.findByStudentSet_id(studentId);
     }
 
+    public List<Course> getCourses() {
+        return (List<Course>) courseRepository.findAll();
+    }
+
     public Course createCourse(Course course) {
         return courseRepository.save(course);
     }

@@ -56,6 +56,19 @@ public class CourseServiceTest {
     }
 
     @Test
+    public void getCoursesTest() {
+        List<Course> expected = List.of(
+                new Course("System Information", Shift.EVENING),
+                new Course("Cyber Security", Shift.AFTERNOON)
+        );
+        Long studentId = 1L;
+        when(courseRepository.findAll()).thenReturn(expected);
+
+        List<Course> result = courseService.getCourses();
+        assertEquals(result, expected);
+    }
+
+    @Test
     public void getCoursesByStudentIdTest_empty() {
         List<Course> result = courseService.getCoursesByStudentId(1L);
         assertTrue(result.isEmpty());

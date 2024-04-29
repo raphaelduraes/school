@@ -1,6 +1,7 @@
 package com.practice.school.controller;
 
 import com.practice.school.exception.CourseNotFoundException;
+import com.practice.school.exception.StudentNotFoundException;
 import com.practice.school.model.Course;
 import com.practice.school.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,24 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/course")
+@RequestMapping("/courses")
 public class CourseController {
     @Autowired
     private CourseService courseService;
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Course>> getCourses() {
+        try {
+            return new ResponseEntity<List<Course>>(courseService.getCourses(), HttpStatus.OK);
+        } catch(StudentNotFoundException exception) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Course>> getCoursesByStudentId(@RequestParam("student") Long studentId) {
+        return new ResponseEntity<List<Course>>(courseService.getCoursesByStudentId(studentId), HttpStatus.OK);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Course> getCourseById(@PathVariable Long id) {
@@ -25,16 +40,7 @@ public class CourseController {
         }
     }
 
-    @GetMapping("/all/student/{id}")
-    public ResponseEntity<List<Course>> getCourseByStudentId(@PathVariable Long id) {
-        try {
-            return new ResponseEntity<List<Course>>(courseService.getCoursesByStudentId(id), HttpStatus.OK);
-        } catch(CourseNotFoundException exception) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<Course> createCourse(@RequestBody Course course) {
         return new ResponseEntity<Course>(courseService.createCourse(course), HttpStatus.OK);
     }
