@@ -6,6 +6,7 @@ import com.practice.school.repository.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -18,8 +19,12 @@ public class SubjectService {
         return subjectRepository.findById(id).orElseThrow(SubjectNotFoundException::new);
     }
 
+    public List<Subject> getSubjects() {
+        return (List<Subject>) subjectRepository.findAll();
+    }
+
     public Set<Subject> getSubjectsByCourseId(Long courseId) {
-        return (Set<Subject>) subjectRepository.findByCourseSet_Id(courseId);
+        return subjectRepository.findByCourseSet_Id(courseId);
     }
 
     public Subject createSubject(Subject subject) {
@@ -27,7 +32,7 @@ public class SubjectService {
     }
 
     public Subject updateSubject(Long subjectId, Subject updatedSubject) throws SubjectNotFoundException {
-        Subject subjectToBeUpdated =  subjectRepository.findById(subjectId).orElseThrow(SubjectNotFoundException::new);
+        subjectRepository.findById(subjectId).orElseThrow(SubjectNotFoundException::new);
         updatedSubject.setId(subjectId);
 
         return subjectRepository.save(updatedSubject);

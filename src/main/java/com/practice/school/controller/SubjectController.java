@@ -8,10 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/subject")
+@RequestMapping("/subjects")
 public class SubjectController {
     @Autowired
     private SubjectService subjectService;
@@ -19,26 +20,35 @@ public class SubjectController {
     @GetMapping("/{id}")
     public ResponseEntity<Subject> getSubjectById(@PathVariable Long id) {
         try {
-            return new ResponseEntity<Subject>(subjectService.getSubjectById(id), HttpStatus.OK);
+            return new ResponseEntity<>(subjectService.getSubjectById(id), HttpStatus.OK);
         } catch(SubjectNotFoundException exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @GetMapping("/all/course/{id}")
-    public ResponseEntity<Set<Subject>> getSubjectsByCourseId(@PathVariable Long id) {
-        return new ResponseEntity<>(subjectService.getSubjectsByCourseId(id), HttpStatus.OK);
+    @GetMapping("/all")
+    public ResponseEntity<List<Subject>> getSubjects() {
+        try {
+            return new ResponseEntity<>(subjectService.getSubjects(), HttpStatus.OK);
+        } catch(SubjectNotFoundException exception) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    @PostMapping("/")
+    @GetMapping
+    public ResponseEntity<Set<Subject>> getSubjectsByCourseId(@RequestParam("course_id") Long courseId) {
+        return new ResponseEntity<>(subjectService.getSubjectsByCourseId(courseId), HttpStatus.OK);
+    }
+
+    @PostMapping
     public ResponseEntity<Subject> createSubject(@RequestBody Subject subject) {
-        return new ResponseEntity<Subject>(subjectService.createSubject(subject), HttpStatus.OK);
+        return new ResponseEntity<>(subjectService.createSubject(subject), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Subject> updateCourse(@RequestBody Subject subject, @PathVariable Long id) {
         try {
-            return new ResponseEntity<Subject>(subjectService.updateSubject(id, subject), HttpStatus.OK);
+            return new ResponseEntity<>(subjectService.updateSubject(id, subject), HttpStatus.OK);
         } catch(SubjectNotFoundException exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -47,6 +57,6 @@ public class SubjectController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Subject> deleteSubject(@PathVariable Long id) {
         subjectService.deleteSubject(id);
-        return new ResponseEntity<Subject>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
