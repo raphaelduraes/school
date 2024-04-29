@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/student")
+@RequestMapping("/students")
 public class StudentController {
     @Autowired
     private StudentService studentService;
@@ -25,16 +25,17 @@ public class StudentController {
         }
     }
 
-    @GetMapping("/all/course/{id}")
-    public ResponseEntity<List<Student>> getStudentsByCourseId(@PathVariable Long id) {
-        try {
-            return new ResponseEntity<List<Student>>(studentService.getStudentsByCourseId(id), HttpStatus.OK);
-        } catch(StudentNotFoundException exception) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @GetMapping("/all")
+    public ResponseEntity<List<Student>> getStudents() {
+        return new ResponseEntity<List<Student>>(studentService.getStudents(), HttpStatus.OK);
     }
 
-    @PostMapping("/")
+    @GetMapping
+    public ResponseEntity<List<Student>> getStudentsByCourseId(@RequestParam("course_id") Long courseId) {
+        return new ResponseEntity<List<Student>>(studentService.getStudentsByCourseId(courseId), HttpStatus.OK);
+    }
+
+    @PostMapping
     public ResponseEntity<Student> createStudent(@RequestBody Student student) {
         return new ResponseEntity<Student>(studentService.createStudent(student), HttpStatus.OK);
     }

@@ -18,6 +18,10 @@ public class StudentService {
         return studentRepository.findById(id).orElseThrow(StudentNotFoundException::new);
     }
 
+    public List<Student> getStudents() {
+        return (List<Student>) studentRepository.findAll();
+    }
+
     public List<Student> getStudentsByCourseId(Long courseId) {
         return (List<Student>) studentRepository.findByCourseSet_Id(courseId);
     }
