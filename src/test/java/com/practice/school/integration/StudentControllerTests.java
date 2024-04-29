@@ -61,41 +61,43 @@ public class CourseControllerTests {
 
     @Test
     public void testCreateCourse() throws Exception {
+        Course stub = new Course("Test 1", Course.Shift.AFTERNOON);
+        Gson gson = new Gson();
+        String json = gson.toJson(stub);
         RequestBuilder request = MockMvcRequestBuilders.post("/courses")
                 .contentType(APPLICATION_JSON)
-                .content(getStubJson());
+                .content(json);
         mockMvc.perform(request)
                 .andExpect(status().is2xxSuccessful());
     }
 
     @Test
     public void testUpdateCourse() throws Exception {
+        Course stub = new Course("Test Updated", Course.Shift.EVENING);
+        Gson gson = new Gson();
+        String json = gson.toJson(stub);
         RequestBuilder request = MockMvcRequestBuilders.put("/courses/2")
                 .contentType(APPLICATION_JSON)
-                .content(getStubJson());
+                .content(json);
         mockMvc.perform(request)
                 .andExpect(status().is2xxSuccessful());
     }
 
     @Test
     public void testUpdateCourse_notFound() throws Exception {
+        Course stub = new Course("Test Updated", Course.Shift.EVENING);
+        Gson gson = new Gson();
+        String json = gson.toJson(stub);
         RequestBuilder request = MockMvcRequestBuilders.put("/courses/000")
                 .contentType(APPLICATION_JSON)
-                .content(getStubJson());
+                .content(json);
         mockMvc.perform(request)
                 .andExpect(status().isNotFound());
     }
 
-    @Test
     public void testDeleteCourse() throws Exception {
         RequestBuilder request = MockMvcRequestBuilders.delete("/courses/1");
         mockMvc.perform(request)
                 .andExpect(status().is2xxSuccessful());
-    }
-
-    private String getStubJson() {
-        Course stub = new Course("Test Updated", Course.Shift.EVENING);
-        Gson gson = new Gson();
-        return gson.toJson(stub);
     }
 }
