@@ -27,7 +27,7 @@ public class CourseController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Course>> getCoursesByStudentId(@RequestParam("student") Long studentId) {
+    public ResponseEntity<List<Course>> getCoursesByStudentId(@RequestParam("student_id") Long studentId) {
         return new ResponseEntity<List<Course>>(courseService.getCoursesByStudentId(studentId), HttpStatus.OK);
     }
 

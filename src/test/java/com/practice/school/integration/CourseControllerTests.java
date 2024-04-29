@@ -53,7 +53,7 @@ public class CourseControllerTests {
 
     @Test
     public void testGetCourseByStudentId() throws Exception {
-        RequestBuilder request = MockMvcRequestBuilders.get("/courses?student=1");
+        RequestBuilder request = MockMvcRequestBuilders.get("/courses?student_id=1");
         mockMvc.perform(request)
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(content().contentType(APPLICATION_JSON));
