@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/grade")
+@RequestMapping("/grades")
 public class GradeController {
     @Autowired
     private GradeService gradeService;
@@ -25,33 +25,25 @@ public class GradeController {
         }
     }
 
-    @GetMapping("/all/student/{id}")
-    public ResponseEntity<List<Grade>> getGradesByStudentId(@PathVariable Long id) {
-        try {
-            return new ResponseEntity<List<Grade>>(gradeService.getGradesByStudentId(id), HttpStatus.OK);
-        } catch(GradeNotFoundException exception) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @GetMapping(value = "", params = "student_id")
+    public ResponseEntity<List<Grade>> getGradesByStudentId(@RequestParam("student_id") Long studentId) {
+        return new ResponseEntity<>(gradeService.getGradesByStudentId(studentId), HttpStatus.OK);
     }
 
-    @GetMapping("/all/subject/{id}")
-    public ResponseEntity<List<Grade>> getGradesBySubjectId(@PathVariable Long id) {
-        try {
-            return new ResponseEntity<List<Grade>>(gradeService.getGradesBySubjectId(id), HttpStatus.OK);
-        } catch(GradeNotFoundException exception) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @GetMapping(value = "", params = "subject_id")
+    public ResponseEntity<List<Grade>> getGradesBySubjectId(@RequestParam("subject_id") Long subjectId) {
+        return new ResponseEntity<>(gradeService.getGradesBySubjectId(subjectId), HttpStatus.OK);
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<Grade> createGrade(@RequestBody Grade grade) {
-        return new ResponseEntity<Grade>(gradeService.createGrade(grade), HttpStatus.OK);
+        return new ResponseEntity<>(gradeService.createGrade(grade), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Grade> updateGrade(@RequestBody Grade grade, @PathVariable Long id) {
         try {
-            return new ResponseEntity<Grade>(gradeService.updateGrade(id, grade), HttpStatus.OK);
+            return new ResponseEntity<>(gradeService.updateGrade(id, grade), HttpStatus.OK);
         } catch(GradeNotFoundException exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -60,6 +52,6 @@ public class GradeController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Grade> deleteGrade(@PathVariable Long id) {
         gradeService.deleteGrade(id);
-        return new ResponseEntity<Grade>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

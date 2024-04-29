@@ -31,7 +31,7 @@ public class GradeService {
     }
 
     public Grade updateGrade(Long gradeId, Grade updatedGrade) throws GradeNotFoundException {
-        Grade gradeToBeUpdated =  gradeRepository.findById(gradeId).orElseThrow(GradeNotFoundException::new);
+        gradeRepository.findById(gradeId).orElseThrow(GradeNotFoundException::new);
         updatedGrade.setId(gradeId);
 
         return gradeRepository.save(updatedGrade);
