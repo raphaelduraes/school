@@ -94,7 +94,7 @@ public class StudentControllerTests {
     }
 
     private String getStubJson() {
-        Student stub = new Student("Raphael", "65 O'Connell St", "aksjfasd@gmail.com", "+5531918231723");
+        Student stub = new Student("Raphael", "65 O'Connell St", "aksjfasd@gmail.com", "0877015743");
         Gson gson = new Gson();
         return gson.toJson(stub);
     }
