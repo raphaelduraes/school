@@ -3,6 +3,7 @@ package com.practice.school.controller;
 import com.practice.school.exception.StudentNotFoundException;
 import com.practice.school.model.Student;
 import com.practice.school.service.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,12 +37,12 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<Student> createStudent(@RequestBody Student student) {
+    public ResponseEntity<Student> createStudent(@Valid @RequestBody Student student) {
         return new ResponseEntity<Student>(studentService.createStudent(student), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Student> updateStudent(@RequestBody Student student, @PathVariable Long id) {
+    public ResponseEntity<Student> updateStudent(@Valid @RequestBody Student student, @PathVariable Long id) {
         try {
             return new ResponseEntity<Student>(studentService.updateStudent(id, student), HttpStatus.OK);
         } catch(StudentNotFoundException exception) {
