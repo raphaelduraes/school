@@ -2,6 +2,8 @@ package com.practice.school;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -23,4 +25,9 @@ public class ApplicationExceptionHandler {
         });
         return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
     }
+
+//    @ExceptionHandler({UsernameNotFoundException.class, BadCredentialsException.class})
+//    public ResponseEntity<Object> handleAuthenticationException(Exception ex) {
+//        return new ResponseEntity<>("Invalid Username or Password.", HttpStatus.UNAUTHORIZED);
+//    }
 }

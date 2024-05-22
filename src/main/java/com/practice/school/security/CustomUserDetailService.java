@@ -1,6 +1,5 @@
-package com.practice.school.service;
+package com.practice.school.security;
 
-import com.practice.school.model.User;
 import com.practice.school.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,10 +14,8 @@ public class CustomUserDetailService implements UserDetailsService {
     private UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username + " is not a valid user"));
-        return org.springframework.security.core.userdetails.User.withUsername(user.getUsername())
-                .password(user.getPassword())
-                .roles(user.getRole())
-                .build();
+        return userRepository.findByUsername(username)
+                .map(UserDetailsAdapter::new)
+                .orElseThrow(() -> new UsernameNotFoundException(username + " is not a valid user"));
     }
 }

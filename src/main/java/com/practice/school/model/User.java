@@ -9,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
+@Table(name = "users")
 public class User {
 
     @Id
@@ -21,6 +22,6 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "role", nullable = false)
-    private String role;
+    @Column(name = "roles", nullable = false)
+    private String roles;
 }

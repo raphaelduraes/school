@@ -127,7 +127,7 @@ VALUES
 	(17, 3, 4, 'C+'),
 	(18, 3, 5, 'D');
 
-INSERT INTO `user` (`id`, `username`, `password`, `role`)
+INSERT INTO `users` (`id`, `username`, `password`, `roles`)
 VALUES
 	(1, 'raphael', '$2a$12$BTVzVyNHvNc1VYpzDAMk5OAVRAiwCPESnbgsQzIIGDWMlLb2ClYwG', 'ADMIN'),
 	(2, 'user', '$2a$12$u5rQ9a8WaOhGhAvNDNQvyefXF9a1Uw1VDraqG4KIp6HksnzB/GPJ2', 'USER');
