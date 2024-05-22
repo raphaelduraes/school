@@ -1,8 +1,12 @@
 package com.practice.school.security;
 
+import com.practice.school.service.CustomUserDetailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -17,21 +21,26 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    @Autowired
+    private CustomUserDetailService userDetailService;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider());
                 http.authorizeHttpRequests(authorization -> {
-                    authorization.requestMatchers((HttpMethod.GET)).permitAll();
-                    authorization.requestMatchers(HttpMethod.POST)
-                            .hasRole("ADMIN")
-                            .anyRequest().authenticated();
-                    authorization.requestMatchers(HttpMethod.PUT)
-                            .hasRole("ADMIN")
-                            .anyRequest().authenticated();
-                    authorization.requestMatchers(HttpMethod.DELETE)
-                            .hasRole("ADMIN")
-                            .anyRequest().authenticated();
+                    authorization
+                            .requestMatchers((HttpMethod.GET))
+                                .permitAll()
+                            .requestMatchers(HttpMethod.POST)
+                                    .hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.PUT)
+                                    .hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.DELETE)
+                                    .hasRole("ADMIN")
+                    .anyRequest().authenticated();
+
                 }
         );
 
@@ -39,13 +48,16 @@ public class SecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withUsername("admin")
-                .password(passwordEncoder.encode("adminPass"))
-                .roles("USER", "ADMIN")
-                .build());
-        return manager;
+    public UserDetailsService userDetailsService() {
+        return userDetailService;
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+        daoAuthenticationProvider.setUserDetailsService(userDetailsService());
+        return daoAuthenticationProvider;
     }
 
     @Bean
