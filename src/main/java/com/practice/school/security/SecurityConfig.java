@@ -23,7 +23,9 @@ public class SecurityConfig {
                .authorizeHttpRequests(authorization -> {
                     authorization
                             .requestMatchers((HttpMethod.GET)).permitAll()
-                            .requestMatchers(HttpMethod.DELETE,  "/courses/**").hasAnyAuthority("ROLE_admin")
+                            .requestMatchers(HttpMethod.POST).hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+                            .requestMatchers(HttpMethod.PUT).hasAnyAuthority("ROLE_ADMIN")
+                            .requestMatchers(HttpMethod.DELETE).hasAnyAuthority("ROLE_ADMIN")
                     .anyRequest().authenticated();
                 }).httpBasic(Customizer.withDefaults())
                .build();
