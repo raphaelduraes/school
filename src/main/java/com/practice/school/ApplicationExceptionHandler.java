@@ -25,9 +25,4 @@ public class ApplicationExceptionHandler {
         });
         return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
     }
-
-//    @ExceptionHandler({UsernameNotFoundException.class, BadCredentialsException.class})
-//    public ResponseEntity<Object> handleAuthenticationException(Exception ex) {
-//        return new ResponseEntity<>("Invalid Username or Password.", HttpStatus.UNAUTHORIZED);
-//    }
 }
